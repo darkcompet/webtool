@@ -14,9 +14,9 @@
 	"AllowedHosts": "*",
 	"App": {
 		"debug": true,
-		"environment": "staging",
+		"environment": "development",
 		"taskMode": {
-			"enableCronJob": true,
+			"enableCronJob": false,
 			"enableCommand": false
 		},
 		"quartz": {
