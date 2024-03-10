@@ -142,7 +142,7 @@ public class McToolController : WebController {
 			try {
 				var result = await CodeConversionService.LoadSetting(settingFilePath);
 				if (result.failed) {
-					throw new Exception(result.message);
+					throw new InvalidOperationException(result.message);
 				}
 
 				// If ok, move to setting file
