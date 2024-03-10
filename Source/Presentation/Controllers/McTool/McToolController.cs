@@ -116,8 +116,10 @@ public class McToolController : WebController {
 	/// View: Setting
 	// [Authorize]
 	public async Task<IActionResult> Setting(IFormFile? settingFile, string? uploadSettingFile, string? downloadSettingFile) {
-		if (!this.IsAuthenticated) {
-			return this.View("SignIn");
+		if (this.appSetting.environment != AppSetting.ENV_DEVELOPMENT) {
+			if (!this.IsAuthenticated) {
+				return this.View("SignIn");
+			}
 		}
 
 		// Case upload
