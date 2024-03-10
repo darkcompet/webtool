@@ -1,6 +1,7 @@
 namespace App;
 
 using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Tool.Compet.Core;
 
@@ -35,7 +36,7 @@ public class CodeConversionService {
 		settingFilePath = settingFilePath ?? AppConst.MCTOOL_SETTING_FILE_RELATIVE_PATH;
 		var settingData = await ExcelHelper.ReadExcelAsync(settingFilePath);
 		if (settingData is null) {
-			throw new Exception("Could not read setting");
+			throw new InvalidDataException("Could not read setting");
 		}
 
 		var tmpReplacementMap = new Dictionary<string, string>();
@@ -46,7 +47,7 @@ public class CodeConversionService {
 		var tmpBlacklist = new Dictionary<string, string>();
 
 		foreach (var sheet in settingData.sheets) {
-			var sheetNameLower = sheet.name?.ToLower();
+			var sheetNameLower = sheet.name?.ToLower(CultureInfo.InvariantCulture);
 
 			if (sheetNameLower == "replacement") {
 				var first = true;
@@ -58,8 +59,8 @@ public class CodeConversionService {
 						continue;
 					}
 
-					var fromText = row[0].Trim().ToUpper();
-					var toText = row[1].Trim().ToUpper();
+					var fromText = row[0].Trim().ToUpper(CultureInfo.InvariantCulture);
+					var toText = row[1].Trim().ToUpper(CultureInfo.InvariantCulture);
 					if (fromText.Length == 0) {
 						if (toText.Length == 0) {
 							continue;
@@ -81,9 +82,9 @@ public class CodeConversionService {
 						continue;
 					}
 
-					var fromCode = row[0].Trim().ToUpper(); // ELBOW
-					var toCode = row[1].Trim().ToUpper(); // E
-					var codeIdentifier = row[2].Trim().ToUpper(); // ELB
+					var fromCode = row[0].Trim().ToUpper(CultureInfo.InvariantCulture); // ELBOW
+					var toCode = row[1].Trim().ToUpper(CultureInfo.InvariantCulture); // E
+					var codeIdentifier = row[2].Trim().ToUpper(CultureInfo.InvariantCulture); // ELB
 					if (fromCode.Length == 0) {
 						if (toCode.Length == 0) {
 							continue;
@@ -108,8 +109,8 @@ public class CodeConversionService {
 						continue;
 					}
 
-					var fromSize = row[0].Trim().ToUpper();
-					var toSize = row[1].Trim().ToUpper();
+					var fromSize = row[0].Trim().ToUpper(CultureInfo.InvariantCulture);
+					var toSize = row[1].Trim().ToUpper(CultureInfo.InvariantCulture);
 					if (fromSize.Length == 0) {
 						if (toSize.Length == 0) {
 							continue;
@@ -131,8 +132,8 @@ public class CodeConversionService {
 						continue;
 					}
 
-					var fromInch = row[0].Trim().ToUpper();
-					var toInch = row[1].Trim().ToUpper();
+					var fromInch = row[0].Trim().ToUpper(CultureInfo.InvariantCulture);
+					var toInch = row[1].Trim().ToUpper(CultureInfo.InvariantCulture);
 					if (fromInch.Length == 0) {
 						if (toInch.Length == 0) {
 							continue;
@@ -154,8 +155,8 @@ public class CodeConversionService {
 						continue;
 					}
 
-					var fromName = row[0].Trim().ToUpper();
-					var toName = row[1].Trim().ToUpper();
+					var fromName = row[0].Trim().ToUpper(CultureInfo.InvariantCulture);
+					var toName = row[1].Trim().ToUpper(CultureInfo.InvariantCulture);
 					if (fromName.Length == 0) {
 						if (toName.Length == 0) {
 							continue;
@@ -177,8 +178,8 @@ public class CodeConversionService {
 						continue;
 					}
 
-					var text = row[0].Trim().ToUpper();
-					var description = row[1].Trim().ToUpper();
+					var text = row[0].Trim().ToUpper(CultureInfo.InvariantCulture);
+					var description = row[1].Trim().ToUpper(CultureInfo.InvariantCulture);
 					if (text.Length == 0) {
 						if (description.Length == 0) {
 							continue;
@@ -282,7 +283,7 @@ public class CodeConversionService {
 	}
 
 	public string ConvertDescription(string _description) {
-		var description = _description.ToUpper();
+		var description = _description.ToUpper(CultureInfo.InvariantCulture);
 
 		// Check blacklist
 		foreach (var pair in _Blacklist) {
