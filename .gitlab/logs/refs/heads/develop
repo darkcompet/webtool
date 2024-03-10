@@ -1,0 +1,10 @@
+0000000000000000000000000000000000000000 2d9464147434f736690253de7f2978a99d10a7cb DarkCompet <darkcompet@gmail.com> 1695526955 +0700	branch: Created from main
+2d9464147434f736690253de7f2978a99d10a7cb 61c5f2a24bc35f03f932f62e797b13d44cdc9835 DarkCompet <darkcompet@gmail.com> 1695527122 +0700	commit: Add git keep to storage
+61c5f2a24bc35f03f932f62e797b13d44cdc9835 0668f03fa0056175387d49a2aed576f7364e2634 DarkCompet <darkcompet@gmail.com> 1695528314 +0700	commit: Make setting file path as const
+0668f03fa0056175387d49a2aed576f7364e2634 82739dc4ed8d574ce0037cba8222b8addd80269a DarkCompet <darkcompet@gmail.com> 1696135702 +0700	commit: Add authentication as cookie based
+82739dc4ed8d574ce0037cba8222b8addd80269a 827bd14c7bfb8106ca381ad8bcaf1cdb86099c8c DarkCompet <darkcompet@gmail.com> 1696137286 +0700	commit: Change log in to sign in
+827bd14c7bfb8106ca381ad8bcaf1cdb86099c8c f5db736962e7e9810e6df3751f58dfeadf43fb0c DarkCompet <darkcompet@gmail.com> 1696137473 +0700	commit: Allow sign in with email and code
+f5db736962e7e9810e6df3751f58dfeadf43fb0c dcef1b36d494778149d03e8f7e53649d190459de DarkCompet <darkcompet@gmail.com> 1696141941 +0700	commit: Change input to password
+dcef1b36d494778149d03e8f7e53649d190459de b1e943e87cbea478f943b58a21f2895db6a00cad DarkCompet <darkcompet@gmail.com> 1696429988 +0700	commit: Add inches separator as comma
+b1e943e87cbea478f943b58a21f2895db6a00cad 5a2f133bc01160b3fdf3c5efcfdf3148463aed25 DarkCompet <darkcompet@gmail.com> 1696472119 +0700	commit: Fix trim inch before accept it
+5a2f133bc01160b3fdf3c5efcfdf3148463aed25 7a1ccecf968801dc98319a9e02a557c6f3ce3fe0 DarkCompet <darkcompet@gmail.com> 1696473005 +0700	commit: Add comment

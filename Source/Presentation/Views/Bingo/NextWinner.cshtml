@@ -1,0 +1,45 @@
+﻿@{
+	ViewData["Title"] = "Home page";
+}
+
+@section Scripts
+{
+	@* https://lottiefiles.com/web-player?lottie_url=https%3A%2F%2Fassets3.lottiefiles.com%2Fpackages%2Flf20_6hsutppl.json *@
+<script src="@Url.Content("https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js")"></script>
+}
+
+<div class="text-center">
+	@{
+		if (Model.winnerBingoCodes.Count > 0)
+		{
+			<div>
+				<p><lottie-player src="https://assets3.lottiefiles.com/packages/lf20_6hsutppl.json" background="transparent" speed="1"
+		style="width: 300px; height: 300px;" autoplay></lottie-player></p>
+
+				<h2>Winner:</h2>
+				@foreach (var bingoCode in Model.winnerBingoCodes)
+				{
+					<h3>@bingoCode</h3>
+					break;
+				}
+
+				@if (Model.noWinnerToGenerate)
+				{
+					<p style="color: red;">No more winner to be generated.</p>
+				}
+			</div>
+		}
+		else if (Model.ownerNotExist)
+		{
+			<p style="color: red;">Your account does not exist. Must visit home page first !</p>
+		}
+		else if (Model.noWinnerToGenerate)
+		{
+			<p style="color: red;">No more winner to be generated.</p>
+		}
+		else
+		{
+			<p style="color: red;">??</p>
+		}
+	}
+</div>

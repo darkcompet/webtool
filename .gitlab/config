@@ -1,0 +1,40 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "origin"]
+	url = git@gitlab.com:darkcompet-webtool/webtool.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[submodule "Tool/Compet/csharp-core"]
+	url = https://github.com/darkcompet/csharp-core.git
+	active = true
+[submodule "Tool/Compet/csharp-core-http"]
+	url = https://github.com/darkcompet/csharp-core-http.git
+	active = true
+[submodule "Tool/Compet/csharp-net-core"]
+	url = https://github.com/darkcompet/csharp-net-core.git
+	active = true
+[submodule "Tool/Compet/csharp-net-json"]
+	url = https://github.com/darkcompet/csharp-net-json.git
+	active = true
+[submodule "Tool/Compet/csharp-net-log"]
+	url = https://github.com/darkcompet/csharp-net-log.git
+	active = true
+[submodule "Tool/Compet/csharp-net-http"]
+	url = https://github.com/darkcompet/csharp-net-http.git
+	active = true
+[submodule "Tool/Compet/csharp-net-efcore"]
+	url = https://github.com/darkcompet/csharp-net-efcore.git
+	active = true
+[submodule "Tool/Compet/csharp-asp-core"]
+	url = https://github.com/darkcompet/csharp-asp-core.git
+	active = true
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[branch "develop"]
+	remote = origin
+	merge = refs/heads/develop

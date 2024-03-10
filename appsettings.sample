@@ -1,0 +1,65 @@
+{
+  "DetailedErrors": true,
+  "Serilog": {
+		"MinimumLevel": {
+			"Default": "Debug",
+			"Override": {
+				"Microsoft": "Information",
+				"Microsoft.AspNetCore": "Information",
+				"Microsoft.EntityFrameworkCore": "Warning",
+				"Microsoft.Hosting.Lifetime": "Information"
+			}
+		}
+	},
+	"AllowedHosts": "*",
+	"App": {
+		"debug": true,
+		"environment": "staging",
+		"taskMode": {
+			"enableCronJob": true,
+			"enableCommand": false
+		},
+		"quartz": {
+			"quartz.scheduler.instanceName": "Quartz ASP.NET Core api-task Scheduler"
+		},
+		"database": {
+			"appdb": "Data Source=tan.darkcompet.com,1433;TrustServerCertificate=true;Initial Catalog=webtool;User ID=sa;Password=Staging1234!",
+			"redis": "tan.darkcompet.com:6379,password=Staging1234!"
+		},
+		"jwt": {
+			"key": "edd54ddb397d4606998e1ace0095b1f2.-!lUhLkhrww76tJAQo@k!_@0atpe63l",
+			"issuer": "webtool",
+			"audience": "client",
+			"subject": "token",
+			"expiresInSeconds": 8640000,
+			"refreshExpiresInSeconds": 86400000
+		},
+		"authCookie": {
+			"issuer": "webtool",
+			"audience": "client"
+		},
+		"web": {
+			"baseUrl": "https://webtool.darkcompet.com"
+		},
+		"ses": {
+			"fromEmail": "darkcompet@gmail.com",
+			"fromName": "WebTool",
+			"accessKey": "AKIA3ATVRTLU7EPLA6XR",
+			"secretKey": "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",
+			"smtpUsername": "AKIA3ATVRTLUUR52H7FD",
+			"smtpPassword": "BEP4HY7Sm5wv9d1w7Dv2rs5JLID6n9UUBP9bmkPLW1q4",
+			"region": "ap-southeast-1"
+		},
+		"s3": {
+			"baseUrl": "https://darkcompet-adabet.s3.ap-southeast-1.amazonaws.com",
+			"bucketName": "darkcompet-adabet",
+			"accessKeyId": "AKIA3ATVRTLUWXFKELNC",
+			"secretAccessKey": "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",
+			"region": "ap-southeast-1"
+		},
+		"rootUserTemplate": {
+			"email": "darkcompet@gmail.com",
+			"password": "1234"
+		}
+	}
+}

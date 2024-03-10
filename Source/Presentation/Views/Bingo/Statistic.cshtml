@@ -1,0 +1,14 @@
+﻿@{
+	ViewData["Title"] = "Current Bingo Codes (participants received)";
+}
+
+<div class="text-center">
+	@{
+		<div>
+			@foreach (var bingo_code in @Model.targetBingoCodes)
+			{
+				<p>@bingo_code</p>
+			}
+		</div>
+	}
+</div>

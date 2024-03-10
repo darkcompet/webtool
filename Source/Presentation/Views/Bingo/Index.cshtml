@@ -1,0 +1,39 @@
+﻿@{
+	ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+	@{
+		if (Model.couldNotCreateNewUser)
+		{
+			<p style="color: red;">The site is in heavy load. Please <a href=".">refresh page</a> to try again.</p>
+		}
+		else if (Model.user?.name is null)
+		{
+			<div>
+				<form method="post">
+					<fieldset>
+						<div>
+							<label for="user_name">Your name:</label>
+							<input type="text" name="user_name" value="" />
+							<input type="submit" value="Register" class="submit" />
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		}
+		else if (Model.user.bingo_code != null)
+		{
+			<div>
+				<h2>Hi @Model.user.name</h2>
+				<p>
+					Merry Christmas and Happy New Year to you and your family!
+					May this time of the year be truly blissful and enjoyable to all of us!
+					<br><br>
+				</p>
+				<p>Your lucky number is:</p>
+				<h2>@Model.user.bingo_code</h2>
+			</div>
+		}
+	}
+</div>

@@ -1,0 +1,22 @@
+﻿@{
+	ViewBag.title = "Code Conversion";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Code Conversion</h1>
+	@{
+		if (ViewBag.message != null) {
+			<p style="font-weight: bold;">@ViewBag.message</p>
+		}
+	}
+
+	<form method="post" enctype="multipart/form-data">
+		<input type="file" name="codeFile" />
+		<input type="submit" />
+	</form>
+</div>
+
+<div>
+	<p><a href="/McTool/Setting">Setting</a></p>
+	<p><a href="/McTool/Logout">Logout</a></p>
+</div>

@@ -1,0 +1,25 @@
+﻿@{
+	ViewBag.title = "Setting";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Setting</h1>
+	@{
+		if (@ViewBag.message != null) {
+			<p>@ViewBag.message</p>
+		}
+	}
+
+	<form method="post" enctype="multipart/form-data" asp-controller="McTool" asp-action="Setting">
+		<input type="file" name="settingFile" />
+		<tr>
+			<td>
+				<input type="submit" name="uploadSettingFile" value="Upload" />
+			</td>
+			<td>
+				<input type="submit" name="downloadSettingFile" value="Download"/>
+			</td>
+		</tr>
+	</form>
+
+</div>

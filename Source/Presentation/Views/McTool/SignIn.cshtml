@@ -1,0 +1,19 @@
+﻿@{
+	ViewBag.title = "Authentication";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Authentication</h1>
+	@{
+		if (ViewBag.message != null) {
+			<p>@ViewBag.message</p>
+		}
+	}
+
+	<form asp-controller="McTool" asp-action="SignIn" method="post">
+		<input type="text" name="username" placeholder="test">
+		<input type="password" name="password" placeholder="1234">
+		<button class="btn btn-primary">Sign in</button>
+	</form>
+
+</div>
