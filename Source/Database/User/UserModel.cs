@@ -15,7 +15,6 @@ using Tool.Compet.Core;
 /// - varchar: various length characters in UTF-8, it take 1 byte per character.
 /// - nchar: fixed length characters in Unicode (UTF-16?), it take 2 bytes per character.
 /// - nvarchar: various length characters in Unicode (UTF-16?), it take 2 bytes per character.
-
 /// [C# Data Type] =>  [SQL Server Data Type]
 /// int            =>  int
 /// string         =>  nvarchar(Max)
@@ -31,7 +30,6 @@ using Tool.Compet.Core;
 /// char           =>  No mapping
 /// sbyte          =>  No mapping (throws exception)
 /// object         =>  No mapping
-
 /// About decimal(p,s) where p is precision (max 38 digits), and s is scale (max 38 digit).
 /// TechNote: Precision is the number of digits in a number. Scale is the number of digits to the right of the decimal point in a number.
 /// For example, the number 123.45 has a precision of 5 and a scale of 2.
@@ -39,14 +37,11 @@ using Tool.Compet.Core;
 /// In earlier versions of SQL Server, the default maximum is 28.
 /// SQL server type: https://docs.microsoft.com/en-us/sql/t-sql/data-types/precision-scale-and-length-transact-sql?view=sql-server-ver16
 /// Cardano db sync schema: https://github.com/input-output-hk/cardano-db-sync/blob/master/doc/schema.md
-
 /// About PK:
 /// https://learn.microsoft.com/en-us/ef/core/modeling/keys?tabs=data-annotations
-
 /// About FK:
 /// There are multiple properties with the [ForeignKey] attribute pointing to navigation 'NftModel.user'.
 /// To define a composite foreign key using data annotations, use the [ForeignKey] attribute on the navigation.
-
 [Table(DbConst.table_user)]
 [Index(nameof(name))]
 [Index(nameof(code), IsUnique = true)]
@@ -173,24 +168,26 @@ public class UserModelBuilder {
 
 		// Seed
 		var passwordHasher = new PasswordHasher<UserModel>();
-		modelBuilder.Entity<UserModel>().ToTable(DbConst.table_user).HasData(
-			new UserModel().AlsoDk(m => {
-				m.id = Guid.NewGuid();
-				m.code = "darkcompet";
-				m.email = "darkcompet@gmail.com";
-				m.password = passwordHasher.HashPassword(m, "Test1234!");
-				m.name = "DarkCompet";
-				m.role = UserModelConst.Role.Root;
-			}),
-			new UserModel().AlsoDk(m => {
-				m.id = Guid.NewGuid();
-				m.code = "vuonghuyminh";
-				m.email = "vuonghuyminh.pr@gmail.com";
-				m.password = passwordHasher.HashPassword(m, "Test1234!");
-				m.name = "Vuong Huy Minh";
-				m.role = UserModelConst.Role.Admin;
-			})
-		);
+		modelBuilder.Entity<UserModel>()
+			.ToTable(DbConst.table_user)
+			.HasData(
+				new UserModel().ThenDk(m => {
+					m.id = Guid.NewGuid();
+					m.code = "darkcompet";
+					m.email = "darkcompet@gmail.com";
+					m.password = passwordHasher.HashPassword(m, "Test1234!");
+					m.name = "DarkCompet";
+					m.role = UserModelConst.Role.Root;
+				}),
+				new UserModel().ThenDk(m => {
+					m.id = Guid.NewGuid();
+					m.code = "vuonghuyminh";
+					m.email = "vuonghuyminh.pr@gmail.com";
+					m.password = passwordHasher.HashPassword(m, "Test1234!");
+					m.name = "Vuong Huy Minh";
+					m.role = UserModelConst.Role.Admin;
+				})
+			);
 	}
 }
 

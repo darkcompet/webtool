@@ -2,7 +2,6 @@
 
 This is asp.net core web app.
 
-
 ## How this project was made
 
 - Make project at local
@@ -44,14 +43,13 @@ This is asp.net core web app.
 	# This is important behavior since when first pull/checkout at another place
 	# will normally checkout main branch first, so submodule is initialized well.
 	mkdir -p Tool/Compet; cd Tool/Compet;
-	git submodule add https://github.com/darkcompet/csharp-core.git
-	git submodule add https://github.com/darkcompet/csharp-core-http.git
-	git submodule add https://github.com/darkcompet/csharp-net-core.git
-	git submodule add https://github.com/darkcompet/csharp-net-json.git
-	git submodule add https://github.com/darkcompet/csharp-net-log.git
-	git submodule add https://github.com/darkcompet/csharp-net-http.git
-	git submodule add https://github.com/darkcompet/csharp-net-efcore.git
-	git submodule add https://github.com/darkcompet/csharp-asp-core.git
+	git submodule add https://github.com/darkcompet/cs.git
+	git submodule add https://github.com/darkcompet/cs-http.git
+	git submodule add https://github.com/darkcompet/cs-net.git
+	git submodule add https://github.com/darkcompet/cs-net-json.git
+	git submodule add https://github.com/darkcompet/cs-net-http.git
+	git submodule add https://github.com/darkcompet/cs-net-efcore.git
+	git submodule add https://github.com/darkcompet/cs-asp.git
 	cd ../../
 
 	# [Modify setting files]

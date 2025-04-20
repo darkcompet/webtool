@@ -29,8 +29,11 @@ public class McToolController : WebController {
 		this.service = service;
 	}
 
-
-	/// View: Index
+	/// <summary>
+	/// Index page.
+	/// </summary>
+	/// <param name="codeFile"></param>
+	/// <returns></returns>
 	public async Task<IActionResult> Index(IFormFile? codeFile = null) {
 		// Console.WriteLine(this.codeConversionService.ConvertDescription("""RED,BW,CONC., 3", 1.1/2", A234-WPB.std"""));
 		// Console.WriteLine(this.codeConversionService.ConvertDescription("""
@@ -48,6 +51,7 @@ public class McToolController : WebController {
 		var uploadFileName = codeFile.FileName;
 
 		// Prepare upload file
+		Directory.CreateDirectory(Path.Combine(this.environment.ContentRootPath, "storage"));
 		var inFilePath = Path.Combine(this.environment.ContentRootPath, "storage", uploadFileName);
 		using (var fileStream = new FileStream(inFilePath, FileMode.Create)) {
 			await codeFile.CopyToAsync(fileStream);
@@ -57,7 +61,7 @@ public class McToolController : WebController {
 		var excelData = await Task.Run(() => this.codeConversionService.ConvertCodeFromFile(inFilePath));
 
 		// Write converted code to excel
-		var outFilePath = Path.Combine(this.environment.ContentRootPath, "storage", Guid.NewGuid().ToString() + "-" + uploadFileName);
+		var outFilePath = Path.Combine(this.environment.ContentRootPath, "storage", Guid.NewGuid() + "-" + uploadFileName);
 		ExcelHelper.WriteToExcelFile(outFilePath, excelData);
 
 		// Response file to client
@@ -142,7 +146,7 @@ public class McToolController : WebController {
 			try {
 				var result = await CodeConversionService.LoadSetting(settingFilePath);
 				if (result.failed) {
-					throw new InvalidOperationException(result.message);
+					throw ApiException.BadRequest(result.msg);
 				}
 
 				// If ok, move to setting file
@@ -172,6 +176,8 @@ public class McToolController : WebController {
 	public IActionResult Error() {
 		this.RedirectToAction("Index");
 
-		return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+		return this.View(new ErrorViewModel {
+			RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier
+		});
 	}
 }

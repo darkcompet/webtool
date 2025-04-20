@@ -21,6 +21,6 @@ public class McToolService {
 		// 	return new ApiUnauthorizedResponse("Invalid");
 		// }
 
-		return new ApiSuccessResponse();
+		return ApiResponse.Ok;
 	}
 }

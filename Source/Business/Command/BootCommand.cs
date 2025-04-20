@@ -5,11 +5,9 @@ using Microsoft.Extensions.Options;
 
 /// For seeding data via api.
 /// Admin+ role is required to run this service.
-
 /// For 3rd-authentication provider (google, facebook,...)
 /// https://developers.google.com/identity/one-tap/android/idtoken-auth
 /// https://developers.google.com/api-client-library
-
 /// AccessToken and RefreshToken: https://codepedia.info/aspnet-core-jwt-refresh-token-authentication
 public class BootCommand : BaseService {
 	private readonly ILogger<BootCommand> logger;
@@ -29,6 +27,6 @@ public class BootCommand : BaseService {
 	}
 
 	private async Task<ApiResponse> _BootProject20231001() {
-		return new ApiSuccessResponse("Done _BootProject20231001");
+		return ApiResponse.Success("Done _BootProject20231001");
 	}
 }

@@ -7,18 +7,29 @@ using Tool.Compet.Core;
 
 public class CodeConversionService {
 	private static Dictionary<string, string> _InchMap = new();
+
 	/// Take care when change since `inchSeparatorChars` and `inchSeparatorRegex` must be same !!
 	private static readonly char[] inchSeparatorChars = "X*,".ToCharArray();
+
 	private static readonly string inchSeparatorRegex = "[X,\\*,\\,]";
 	private static readonly string _InchSubPattern = "[\\d\\.]+[\\d\\.\\s'\"\\/-]*"; // .75" - 1/4'
 	private static readonly string _InchFullPatter = $"({_InchSubPattern})" + "(\\s{0,1}" + inchSeparatorRegex + "\\s{0,1}" + _InchSubPattern + "){0,2}";
 	private static readonly Regex _InchRegex = new(_InchFullPatter, RegexOptions.Compiled);
 
-	private static DkKeyOrderedDictionary<string> _SizeMap = new();
+	private static DkKeyOrderedHashMap<string> _SizeMap = new();
 
-	private static readonly HashSet<string> _SupportedCodeIdentifiers = new() { "ELB", "ECC", "CAP", "CON", "TEE", "RED" };
+	private static readonly HashSet<string> _SupportedCodeIdentifiers = new() {
+		"ELB",
+		"ECC",
+		"CAP",
+		"CON",
+		"TEE",
+		"RED"
+	};
+
 	/// CustomerCode -> MyCode. For eg,. ELL -> ELB, ELBOW -> ELB
 	private static Dictionary<string, CodeNode> _CodeMap = new();
+
 	private static Dictionary<string, string> _ElbowShortLongMap = new();
 
 	/// Replace occurrencies to target text before jump to process.
@@ -29,11 +40,8 @@ public class CodeConversionService {
 	static CodeConversionService() {
 	}
 
-	public CodeConversionService() {
-	}
-
 	public static async Task<ApiResponse> LoadSetting(string? settingFilePath = null) {
-		settingFilePath = settingFilePath ?? AppConst.MCTOOL_SETTING_FILE_RELATIVE_PATH;
+		settingFilePath ??= AppConst.MCTOOL_SETTING_FILE_RELATIVE_PATH;
 		var settingData = await ExcelHelper.ReadExcelAsync(settingFilePath);
 		if (settingData is null) {
 			throw new InvalidDataException("Could not read setting");
@@ -47,7 +55,7 @@ public class CodeConversionService {
 		var tmpBlacklist = new Dictionary<string, string>();
 
 		foreach (var sheet in settingData.sheets) {
-			var sheetNameLower = sheet.name?.ToLower(CultureInfo.InvariantCulture);
+			var sheetNameLower = sheet.name.ToLower(CultureInfo.InvariantCulture);
 
 			if (sheetNameLower == "replacement") {
 				var first = true;
@@ -65,7 +73,7 @@ public class CodeConversionService {
 						if (toText.Length == 0) {
 							continue;
 						}
-						throw new Exception($"FromText must not empty for ToText: {toText}");
+						throw new InvalidDataException($"FromText must not empty for ToText: {toText}");
 					}
 
 					// Register replacement map
@@ -96,7 +104,12 @@ public class CodeConversionService {
 					}
 
 					// Register code map
-					tmpCodeMap.Add(fromCode, new() { fromCode = fromCode, toCode = toCode, codeIdentifier = codeIdentifier });
+					tmpCodeMap.Add(fromCode,
+						new() {
+							fromCode = fromCode,
+							toCode = toCode,
+							codeIdentifier = codeIdentifier
+						});
 				}
 			}
 			else if (sheetNameLower == "sizemap") {
@@ -119,7 +132,10 @@ public class CodeConversionService {
 					}
 
 					// Register size node
-					tmpSizeNodes.Add(fromSize, new SizeMapNode { size = toSize });
+					tmpSizeNodes.Add(fromSize,
+						new SizeMapNode {
+							size = toSize
+						});
 				}
 			}
 			else if (sheetNameLower == "inchmap") {
@@ -205,11 +221,11 @@ public class CodeConversionService {
 		_ElbowShortLongMap = tmpShortLongMap;
 		_Blacklist = tmpBlacklist;
 
-		return new ApiSuccessResponse();
+		return ApiResponse.Ok;
 	}
 
-	private static DkKeyOrderedDictionary<string> _BuildSizeMap(Dictionary<string, SizeMapNode> inSizeMap) {
-		var outSizeMap = new DkKeyOrderedDictionary<string>();
+	private static DkKeyOrderedHashMap<string> _BuildSizeMap(Dictionary<string, SizeMapNode> inSizeMap) {
+		var outSizeMap = new DkKeyOrderedHashMap<string>();
 		var keys = inSizeMap.Keys.ToArray();
 
 		// Build tree
@@ -231,9 +247,10 @@ public class CodeConversionService {
 			_CalcPriorityForSizeNode(inSizeMap, key);
 		}
 
-		Array.Sort(keys, (s1, s2) => {
-			return inSizeMap[s2].priority - inSizeMap[s1].priority;
-		});
+		Array.Sort(keys,
+			(s1, s2) => {
+				return inSizeMap[s2].priority - inSizeMap[s1].priority;
+			});
 
 		foreach (var key in keys) {
 			outSizeMap.Add(key, inSizeMap[key].size);
@@ -269,7 +286,7 @@ public class CodeConversionService {
 				var newRow = new List<string>(colCount * 3);
 
 				for (var col = 0; col < colCount; ++col) {
-					var convertedColumn = this.ConvertDescription(rowArr[col] ?? string.Empty);
+					var convertedColumn = this.ConvertDescription(rowArr[col]);
 					newRow.Add(rowArr[col]);
 					newRow.Add(convertedColumn);
 					newRow.Add(convertedColumn.Length + string.Empty);
@@ -511,7 +528,10 @@ public class CodeConversionService {
 			}
 		}
 
-		return new SizeResult { size = string.Empty, descriptionAfterRemovedTheSize = description };
+		return new SizeResult {
+			size = string.Empty,
+			descriptionAfterRemovedTheSize = description
+		};
 	}
 
 	private InchesResult _CalcInches(string text, int singlePatternPadCount = 4) {
@@ -699,7 +719,9 @@ public class CodeConversionService {
 		// Only accept inches of 1 or 2 numbers
 		if (numbers.Count < 1 || numbers.Count > 2) {
 			// Console.WriteLine($"    -> Wrong part count, numbers: [{string.Join("___", numbers.Select(m => m.value))}]");
-			return new InchesDetectionResult() { message = $"[invalid_inches:wrong_part_count ({inches})]" };
+			return new InchesDetectionResult() {
+				message = $"[invalid_inches:wrong_part_count ({inches})]"
+			};
 		}
 
 		var result = new InchesDetectionResult();
@@ -733,7 +755,10 @@ public class CodeConversionService {
 
 		if (_InchMap.ContainsKey(number)) {
 			// Console.WriteLine($"---> _AddInchIfValid: accepted _curNumber: {_curNumber}, number: {number}");
-			numbers.Add(new() { value = number, precision = precision });
+			numbers.Add(new() {
+				value = number,
+				precision = precision
+			});
 			return true;
 		}
 

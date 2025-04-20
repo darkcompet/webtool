@@ -1,24 +1,21 @@
-[submodule "Tool/Compet/csharp-core"]
-	path = Tool/Compet/csharp-core
-	url = https://github.com/darkcompet/csharp-core.git
-[submodule "Tool/Compet/csharp-core-http"]
-	path = Tool/Compet/csharp-core-http
-	url = https://github.com/darkcompet/csharp-core-http.git
-[submodule "Tool/Compet/csharp-net-core"]
-	path = Tool/Compet/csharp-net-core
-	url = https://github.com/darkcompet/csharp-net-core.git
-[submodule "Tool/Compet/csharp-net-json"]
-	path = Tool/Compet/csharp-net-json
-	url = https://github.com/darkcompet/csharp-net-json.git
-[submodule "Tool/Compet/csharp-net-log"]
-	path = Tool/Compet/csharp-net-log
-	url = https://github.com/darkcompet/csharp-net-log.git
-[submodule "Tool/Compet/csharp-net-http"]
-	path = Tool/Compet/csharp-net-http
-	url = https://github.com/darkcompet/csharp-net-http.git
-[submodule "Tool/Compet/csharp-net-efcore"]
-	path = Tool/Compet/csharp-net-efcore
-	url = https://github.com/darkcompet/csharp-net-efcore.git
-[submodule "Tool/Compet/csharp-asp-core"]
-	path = Tool/Compet/csharp-asp-core
-	url = https://github.com/darkcompet/csharp-asp-core.git
+[submodule "Tool/Compet/cs"]
+	path = Tool/Compet/cs
+	url = https://github.com/darkcompet/cs.git
+[submodule "Tool/Compet/cs-http"]
+	path = Tool/Compet/cs-http
+	url = https://github.com/darkcompet/cs-http.git
+[submodule "Tool/Compet/cs-net"]
+	path = Tool/Compet/cs-net
+	url = https://github.com/darkcompet/cs-net.git
+[submodule "Tool/Compet/cs-net-json"]
+	path = Tool/Compet/cs-net-json
+	url = https://github.com/darkcompet/cs-net-json.git
+[submodule "Tool/Compet/cs-net-http"]
+	path = Tool/Compet/cs-net-http
+	url = https://github.com/darkcompet/cs-net-http.git
+[submodule "Tool/Compet/cs-net-efcore"]
+	path = Tool/Compet/cs-net-efcore
+	url = https://github.com/darkcompet/cs-net-efcore.git
+[submodule "Tool/Compet/cs-asp"]
+	path = Tool/Compet/cs-asp
+	url = https://github.com/darkcompet/cs-asp.git

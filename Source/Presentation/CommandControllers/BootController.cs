@@ -30,7 +30,7 @@ public class BootController : ControllerBase {
 	[HttpPost, Route("cmd/project/Boot")]
 	public async Task<ApiResponse> BootProject() {
 		if (!this.appSetting.taskMode.enableCommand) {
-			return new ApiBadRequestResponse("Bad mode");
+			throw ApiException.BadRequest("Bad mode");
 		}
 		return await this.command.BootProject();
 	}

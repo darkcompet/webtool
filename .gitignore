@@ -10,6 +10,7 @@ Properties/launchSettings.json
 /local
 /logs
 storage/*
+.idea
 
 ###################
 # compiled source #
